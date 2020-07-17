@@ -1,13 +1,19 @@
 from flask import Flask ,send_file, request # pip install flask
 from flask_cors import CORS
 import hashlib, datetime
+from db import *
 app = Flask(__name__)
 CORS(app)
 
 import requests
 
+
+
+database = DB()
+
 @app.route("/")
 def hello():
+    global database
     date = datetime.datetime.now()
     data = {
         "country": "",
@@ -16,10 +22,8 @@ def hello():
         "date": datetime.datetime.now()
     }
     ip_address = request.headers.get('X-Forwarded-For')
-    print(ip_address)
     if ip_address == None:
         ip_address = (request.remote_addr).encode("utf-8")
-    print(ip_address)
     ip_hash =  hashlib.sha224(ip_address).hexdigest()
     data["ip"] = ip_hash
     try:
@@ -34,7 +38,8 @@ def hello():
     for param in request.args:
         data[param] = str(request.args.get(param))
     print(data)
-    print("COMMING FROM : ",ip_address)
+    database.addView(data)
+
     return "Hello"
 
 
