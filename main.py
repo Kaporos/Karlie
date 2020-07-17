@@ -5,6 +5,7 @@ app = Flask(__name__)
 def hello():
     print(request.headers)
     ip_address = request.headers.get('X-Forwarded-For')
+    geo_info = requests.get("http://ip-api.com/json/{}".format(ip_address))
     print("COMMING FROM : "+ip_address)
     return send_file("pixel.png", mimetype='image/png')
 
