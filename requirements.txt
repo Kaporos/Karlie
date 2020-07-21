@@ -1,0 +1,5 @@
+Flask == 1.1.2
+Flask_Cors == 3.0.8
+requests == 2.24.0
+tinydb == 4.1.1
+tinydb_serialization == 2.0.0
