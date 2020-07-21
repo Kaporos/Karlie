@@ -112,7 +112,7 @@ in development
 
 ## Made By :
 
-Kaporos
+[Kaporos](https://github.com/Kaporos/)
 
-Charlie08
+[Charlie08](https://github.com/charlie08-dev)
 
