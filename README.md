@@ -1,10 +1,10 @@
 # Karlie
-<img src="https://svgshare.com/i/N52.svg" width="200">
+<img src="https://svgshare.com/i/N5x.svg" width="200">
 
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)  [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://www.python.org/)  [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://en.wikipedia.org/wiki/HTML)
 
-[![forthebadge](https://forthebadge.com/images/badges/does-not-contain-treenuts.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/does-not-contain-treenuts.svg)](https://i.pinimg.com/originals/84/0e/5f/840e5fe01951213fe54ceb0786e3cf7c.gif)
 
 [![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com)
 
@@ -71,7 +71,7 @@ WantedBy=multi-user.target
 
 Done ! For test your installation, simply go to http://yourserver.com:9999/main.js
 
-See if your server is returning javascript, and if in javascript, SERVER_ADDR is replaced by yourserver.com:9999
+See if your server is returning some javascript, and if in javascript, SERVER_ADDR is replaced by yourserver.com:9999
 ## Anonymity
 
 Karlie only saves your approximate location (Country), and the hash of your ip to know if you have already visited the tracked page, but in any case we can not find your ip address, your precise location or something else about your users
