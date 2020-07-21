@@ -39,7 +39,7 @@ Ex:
 hello();
 ```
 
-### How to use it
+### How to start it
 
 There are two ways to start Karlie, the first is to simply do:
 
@@ -74,6 +74,35 @@ WantedBy=multi-user.target
 Done ! For test your installation, simply go to http://yourserver.com:9999/main.js
 
 See if your server is returning some javascript, and if in javascript, SERVER_ADDR is replaced by yourserver.com:9999
+
+## Setup in your website
+
+For starting using Karlie with your website , that's very simple !
+Just include 
+
+``<script src="http://yourserver.com:9999/main.js"></script>``
+
+Now , Karlie with start doing its job
+
+Karlie will include all url params in stats , for apply filter.
+
+So, if your website url is ``https://mywebsite.com" , do not hesitate to add url parameters according to the sources of links, example:
+
+If you put your website link on your facebook , put this : 
+``https://mywebsite.com?source=Facebook``
+
+Karlie will detect all url params , and save them , so later, you can filter the statistics to see for example all the visits to your site coming from your Facebook
+
+It works for the source parameter, but it works for all the other possible and unimaginable parameters
+
+If you want some ideas : 
+
+| URL Param       | Why                                                                                    |
+| --------------- | -------------------------------------------------------------------------------------- |
+| source          | To know where people come from                                                         |
+| provider        | If more than one of you own the website, you can see who has attracted the most people |
+| And many more ! | You can use whatever you want !                                                        |  |  |
+
 ## Anonymity
 
 Karlie only saves your approximate location (Country), and the hash of your ip to know if you have already visited the tracked page, but in any case we can not find your ip address, your precise location or something else about your users
