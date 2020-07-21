@@ -1,6 +1,7 @@
 from tinydb  import TinyDB, where, Query
 from tinydb_serialization import Serializer,SerializationMiddleware
 from datetime import datetime
+from operator import eq, ge, gt, le, lt, ne
 class DateTimeSerializer(Serializer):
     OBJ_CLASS = datetime  # The class this serializer handles
 
@@ -22,27 +23,28 @@ class DB():
         self.db.insert(json)
 
     def getViews(self,data):
-        self.result = []
-
-        date_min_var = "date_min"
-        date_max_var = "date_max"
-
+        ops = {
+            "==": eq,
+            "!=": ne,
+            "<=": le,
+            ">=": ge,
+            "<": lt,
+            ">": gt,
+        }
+        queries_list = []
         keys = data.keys()
-        query = "self.result = self.db.search("
-        qlen = len(data)
-        count = 0
-        for key, value in data.items():
-            if (key != date_min_var and key != date_max_var):
-                query += "(self.cursor.%s == '%s')" % (key, value)
-            else:
-                if (key == date_min_var):
-                    query += "(self.cursor.date > datetime(%s,%s,%s))" % (value.year,value.month,value.day)
-                if (key == date_max_var):
-                    query += "(self.cursor.date < datetime(%s,%s,%s))" % (value.year,value.month,value.day)
-            count += 1
-            if count < qlen:
-                query += " & "
+        default_op = ops.get("==")
+        for key in keys:
+            possible_queries = data[key]
+            for query in possible_queries:
+                op = default_op
+                value = query["value"]
+                if "op" in query.keys():
+                    op = ops[query["op"]]
 
-        query += ')'
-        exec(query)
-        return self.result
+                queries_list.append(op(where(key), value))
+        start = queries_list.pop(0)
+        result = start
+        for x in queries_list:
+            result = result & x
+        return self.db.search(result)
