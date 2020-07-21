@@ -6,7 +6,9 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/does-not-contain-treenuts.svg)](https://i.pinimg.com/originals/84/0e/5f/840e5fe01951213fe54ceb0786e3cf7c.gif)
 
-[![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 
 Karlie is an open source statistics maker, based on user privacy
 
