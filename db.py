@@ -1,7 +1,7 @@
 from tinydb  import TinyDB, where, Query
 from tinydb_serialization import Serializer,SerializationMiddleware
 from datetime import datetime
-from operator import eq, ge, gt, le, lt, ne
+from operator import eq, ge, gt, le, lt, ne, itemgetter
 class DateTimeSerializer(Serializer):
     OBJ_CLASS = datetime  # The class this serializer handles
 
@@ -31,20 +31,73 @@ class DB():
             "<": lt,
             ">": gt,
         }
+        
         queries_list = []
-        keys = data.keys()
-        default_op = ops.get("==")
-        for key in keys:
-            possible_queries = data[key]
-            for query in possible_queries:
-                op = default_op
-                value = query["value"]
-                if "op" in query.keys():
-                    op = ops[query["op"]]
+        try :
+            keys = data.keys()
+            default_op = ops.get("==")
+            for key in keys:
+                possible_queries = data[key]
+                for query in possible_queries:
+                    op = default_op
+                    value = query["value"]
+                    if "op" in query.keys():
+                        op = ops[query["op"]]
 
-                queries_list.append(op(where(key), value))
-        start = queries_list.pop(0)
-        result = start
-        for x in queries_list:
-            result = result & x
-        return self.db.search(result)
+                    queries_list.append(op(where(key), value))
+            start = queries_list.pop(0)
+            result = start
+            for x in queries_list:
+                result = result & x
+            return self.db.search(result)
+        except:
+            return []
+    def global_infos(self):
+        result = {}
+        result["total_views"] = len(self.db)
+        countries = []
+        codes = {}
+        countries_tmp = {}
+        entries = self.db.all()
+        for entry in entries:
+            country = entry["country"]
+            codes[country] = entry["country_code"]
+            if country in countries_tmp.keys():
+                countries_tmp[country] += 1
+            else:
+                countries_tmp[country] = 1
+        for country in countries_tmp.keys():
+            countries.append({"name": country,"total":countries_tmp[country],"code":codes[country]})
+
+        result["top_country"] = max(countries_tmp.items(), key=itemgetter(1))[0]
+        result["countries"] = countries
+        today = datetime.now()
+
+        #THIS MONTH
+        this_month_views = self.getViews({
+            "date": [
+                {
+                    "value": datetime(today.year,today.month,1),
+                    "op": ">"
+                }
+            ]
+        })
+
+
+        #LAST MONTH
+        last_month = datetime(today.year,today.month - 1,1)
+        last_month_views = self.getViews({
+            "date":[
+                {
+                    "value": last_month,
+                    "op": ">"
+                },
+                {
+                    "value": datetime(today.year,today.month,1),
+                    "op": "<"
+                }
+            ]
+        })
+        result["this_month_views"] = len(this_month_views)
+        result["last_month_views"] = len(last_month_views)
+        return result
