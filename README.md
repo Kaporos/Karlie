@@ -110,6 +110,44 @@ Karlie only saves your approximate location (Country), and the hash of your ip t
 ## Web GUI
 in development
 
+## Behind Reverse Proxy
+
+
+
+If Karlie runs behind a reverse proxy ( Like NGINX ), api documentation will not work. 
+
+You are concerned if your server works like this:
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Reverse_proxy_h2g2bob.svg/1200px-Reverse_proxy_h2g2bob.svg.png" width="500">
+
+(If you are not interested in the Karlie API documentation, this is not necessary)
+
+You'll have to do some extra config ( Not difficult)
+
+First , you'll need to modify flask_restx module, don't worry, it's already done. ( We are waiting our pull request admit )
+
+You can download needed version [here](https://github.com/Kaporos/extra_files/raw/master/flask_restx_mod.zip)
+
+Then , extract it to Karlie's root.
+
+You should have a flask_restx directory with some python files inside at the root of Karlie.
+
+Perfect, almost finished.
+Now, edit main.py and change this line : 
+
+``api = Api(app,prefix='/api',doc="/api/docs/")``
+
+To :
+
+``api = Api(app,prefix='/api',doc="/api/docs/",swagger_json_url="http://yourserver.com/api/swagger.json")``
+
+( Working with https )
+
+You're done ! For test , go to : 
+http://youserver.com/api/docs 
+
+You should have pretty documentation , and not an error !
+
 ## Made By :
 
 [Kaporos](https://github.com/Kaporos/)
