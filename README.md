@@ -135,11 +135,11 @@ You should have a flask_restx directory with some python files inside at the roo
 Perfect, almost finished.
 Now, edit main.py and change this line : 
 
-``api = Api(app,prefix='/api',doc="/api/docs/")``
+``api = Api(app,prefix='/api',doc="/api/docs/",default="Karlie API v1",default_label="Click here")``
 
 To :
 
-``api = Api(app,prefix='/api',doc="/api/docs/",swagger_json_url="http://yourserver.com/api/swagger.json")``
+``api = Api(app,prefix='/api',doc="/api/docs/",default="Karlie API v1",default_label="Click here",swagger_json_url="https://karlie.vavo.be/api/swagger.json")``
 
 ( Working with https )
 
