@@ -35,12 +35,24 @@ class DB():
         queries_list = []
         try :
             keys = data.keys()
+            if len(keys) == 0:
+                return self.db.all()
             default_op = ops.get("==")
             for key in keys:
                 possible_queries = data[key]
                 for query in possible_queries:
                     op = default_op
                     value = query["value"]
+                    #CONVERTING STRING TO SOME TYPES
+                    try: 
+                        value = datetime.fromisoformat(value)
+                    except:
+                        pass
+                    try:
+                        value = int(value)
+                    except:
+                        pass
+
                     if "op" in query.keys():
                         op = ops[query["op"]]
 

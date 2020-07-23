@@ -5,13 +5,27 @@ import requests
 
 from db import *
 import hashlib, datetime
+from flask.json import JSONEncoder
 
+class CustomJSONEncoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime.datetime):
+            return o.isoformat()
+        else:
+            if callable(o):
+                return str(o())
+        return super().default(o)
+
+        
 
 
 
 app = Flask(__name__)
+app.json_encoder = CustomJSONEncoder
+app.config.update(RESTX_JSON={"cls": CustomJSONEncoder})
+
 CORS(app)
-api = Api(app,prefix='/api',doc="/api/docs/")
+api = Api(app,prefix='/api',doc="/api/docs/",default="Karlie API v1",default_label="Click here")
 
 
 
@@ -28,6 +42,17 @@ global_data = api.model('Global Return', {
     'top_country': fields.String,
     'countries': fields.List(fields.Nested(country))
 })
+
+filter = api.model("Filter",{
+    "value": fields.String(required=True,example="1"),
+    "op": fields.String(default="==",example="==")
+})
+
+filtered_request = api.model("Query",{
+    'id': fields.List(fields.Nested(filter),title="field")
+})
+
+
 
 
 database = DB()
@@ -69,12 +94,22 @@ def js_file():
     return send_file("karlie.js", mimetype='application/javascript')
 
 #API /API ( DOCUMENTATION : /API/DOCS)
-@api.route('/global')
+@api.route('/global',doc={"description": "Get global stats about Karlie recordings"})
 class Global(Resource):
     @api.marshal_with(global_data)
 
     def get(self):
         return database.global_infos()
+
+
+
+@api.route('/get_views',doc={"description": "Get filtered views",})
+class Query(Resource):
+    @api.expect(filtered_request)
+    def post(self):
+        json_data = request.get_json(force=True)
+        print(json_data)
+        return database.getViews(json_data)
 
 if __name__ == "__main__":
     app.run(port=9999)
