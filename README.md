@@ -110,6 +110,20 @@ Karlie only saves your approximate location (Country), and the hash of your ip t
 ## Web GUI
 in development
 
+## Karlie API
+
+Karlie has an API, which allows you to create the clients you want, and link it to services, to access this API, nothing could be simpler, just go see 
+
+``http://yourserver.com/api/docs/``
+
+You will have all the documentation, and it is interactive, click on the Try It Out buttons and you will see
+
+Example of use, add this in your bashrc:
+
+`` alias karlie_stats = 'curl -X GET "http://yourserver.com/api/global" -H "accept: application / json" -s | jq' ``
+
+And then, with the command karlie_stats, you can directly see Karlie's statistics
+
 ## Behind Reverse Proxy
 
 
@@ -120,7 +134,7 @@ You are concerned if your server works like this:
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Reverse_proxy_h2g2bob.svg/1200px-Reverse_proxy_h2g2bob.svg.png" width="500">
 
-(If you are not interested in the Karlie API documentation, this is not necessary)
+(If you are not interested by the Karlie API documentation, this is not necessary)
 
 You'll have to do some extra config ( Not difficult)
 
