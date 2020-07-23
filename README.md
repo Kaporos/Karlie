@@ -61,7 +61,7 @@ Description=Karlie
 After=network.target
 
 [Service]
-User=theo
+User=yourUser ( NOT ROOT )
 WorkingDirectory=/home/yourhome/Karlie
 ExecStart=/usr/local/bin/gunicorn -b 0.0.0.0:9999 -w 1 main:app
 #Restart=always
@@ -123,6 +123,8 @@ Example of use, add this in your bashrc:
 `` alias karlie_stats = 'curl -X GET "http://yourserver.com/api/global" -H "accept: application / json" -s | jq' ``
 
 And then, with the command karlie_stats, you can directly see Karlie's statistics
+
+
 
 ## Behind Reverse Proxy
 
