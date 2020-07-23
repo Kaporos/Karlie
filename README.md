@@ -124,7 +124,7 @@ You are concerned if your server works like this:
 
 You'll have to do some extra config ( Not difficult)
 
-First , you'll need to modify flask_restx module, don't worry, it's already done. ( We are waiting our pull request admit )
+First , you'll need to modify flask_restx module, don't worry, it's already done. ( We are waiting our pull request admition )
 
 You can download needed version [here](https://github.com/Kaporos/extra_files/raw/master/flask_restx_mod.zip)
 
